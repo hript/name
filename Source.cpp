@@ -1,36 +1,39 @@
 #include<iostream>
 
-#define SIZE 100
+#define SIZE 16
 
 using namespace std;
 
 int main()
 {
-	int party, candy, kids;
-	bool flag = false;
-	cin >> party;
-	int arr[SIZE] = { 0 };
+	int vote, pair;
+	cin >> vote;
+	int count[SIZE + 1] = { 0 };
+	
 
-	for (int i = 0; i < party; i++) {
-		cin >> kids >> candy;
-		if (candy % kids != 0) {
-			arr[candy % kids] += 1;
-			flag = true;
-		}		
+	for (int i = 0; i < vote; i++) {
+		cin >> pair;
+		count[pair] += 1;
 	}
 
-	if (flag == false)
-		cout << 0;
-
-	int answer = 0, counter = 0;
-	for (int i = 0; i < 100; i++) {
-		if (counter <= arr[i]) {
-			counter = arr[i];
-			answer = i;
+	int counter = 0, numPair = 0;
+	for (int i = 1; i <= SIZE; i++) {
+		if (counter <= count[i])
+		{
+			counter = count[i];
+			numPair = i;
 		}
-			
 	}
 
-	cout << answer;
+	cout << numPair << " " << counter << endl;
+	counter -= 1;
+	while (counter > 0) {
+		for (int i = 1; i <= SIZE; i++) {
+			if (counter == count[i])
+				cout << i << " " << counter<<endl;
+		}
+		counter -= 1;
+	}
+	
 	return 0;
 }
